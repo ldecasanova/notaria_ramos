@@ -1,0 +1,234 @@
+/* Home · composición de bloques. Solo tokens del design system. */
+
+/* ── La notaría: texto + pilares ───────────────────────── */
+.dosColumnas {
+  display: grid;
+  gap: var(--espacio-xxl);
+}
+.parrafo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-l);
+  color: var(--color-texto-sec);
+}
+.pilares {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--borde-ancho) solid var(--color-borde);
+}
+.pilar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--espacio-m);
+  padding-block: var(--espacio-l);
+  border-bottom: var(--borde-ancho) solid var(--color-borde);
+}
+.pilarIcono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--alto-control);
+  height: var(--alto-control);
+  border-radius: 50%;
+  background: var(--color-primario-claro);
+  color: var(--color-acento-oscuro);
+}
+.pilarTexto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+}
+.secundario {
+  color: var(--color-texto-sec);
+}
+
+/* ── Servicios: tarjetas en grilla ─────────────────────── */
+.servicios {
+  display: grid;
+  gap: var(--grid-gutter);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.servicio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+  height: 100%;
+  padding: var(--espacio-l);
+  box-sizing: border-box;
+  background: var(--color-superficie);
+  border: var(--borde-ancho) solid var(--color-borde);
+  border-radius: var(--radio-marca);
+  color: var(--color-texto);
+  text-decoration: none;
+}
+.servicio {
+  transition:
+    border-color var(--movimiento-medio) var(--curva-estandar),
+    transform var(--movimiento-medio) var(--curva-salida);
+}
+.servicio:hover {
+  border-color: var(--color-texto);
+  transform: translateY(calc(-1 * var(--espacio-xs)));
+}
+.servicioAccion svg {
+  transition: transform var(--transicion);
+}
+.servicio:hover .servicioAccion svg {
+  transform: translateX(var(--espacio-xs));
+}
+.servicio:focus-visible {
+  outline: var(--foco-ancho) solid var(--color-acento);
+  outline-offset: var(--foco-ancho);
+}
+.servicioAccion {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+  margin-top: auto;
+  padding-top: var(--espacio-l);
+  color: var(--color-acento-oscuro);
+  font-weight: var(--peso-medium);
+}
+
+/* ── Consulta en 3 pasos + imagen ──────────────────────── */
+.pasos {
+  list-style: none;
+  margin: 0 0 var(--espacio-xl);
+  padding: 0;
+  border-top: var(--borde-ancho) solid var(--color-borde);
+}
+.paso {
+  display: grid;
+  grid-template-columns: var(--alto-control) 1fr;
+  gap: var(--espacio-m);
+  padding-block: var(--espacio-l);
+  border-bottom: var(--borde-ancho) solid var(--color-borde);
+}
+.pasoNumero {
+  color: var(--color-acento-oscuro);
+  padding-top: var(--espacio-xs);
+}
+.marcoImagen {
+  overflow: hidden;
+  border-radius: var(--radio-marca);
+}
+.imagen {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radio-marca);
+}
+
+/* ── Equipo: imagen + texto ────────────────────────────── */
+.equipoTexto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--espacio-l);
+}
+.equipoEtiqueta {
+  color: var(--color-acento-oscuro);
+}
+
+/* ── Blog ──────────────────────────────────────────────── */
+.articulos {
+  display: grid;
+  gap: var(--espacio-xxl) var(--grid-gutter);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.articulo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+  color: var(--color-texto);
+  text-decoration: none;
+  border-radius: var(--radio-marca);
+}
+.articulo:focus-visible {
+  outline: var(--foco-ancho) solid var(--color-acento);
+  outline-offset: var(--foco-ancho);
+}
+.articuloMarco {
+  overflow: hidden;
+  border-radius: var(--radio-marca);
+}
+.articuloImagen {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform var(--movimiento-lento) var(--curva-salida);
+}
+.articulo:hover .articuloImagen {
+  transform: scale(1.04);
+}
+.articulo:hover .articuloTitulo {
+  text-decoration: underline;
+  text-underline-offset: var(--espacio-xs);
+}
+.articuloCategoria {
+  color: var(--color-acento-oscuro);
+}
+
+/* ── Banda final de cita ───────────────────────────────── */
+.banda {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.bandaFoto {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+/* Mismo velo que el hero: el texto nunca va directo sobre la foto. */
+.banda::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to right, var(--color-velo-fuerte) 0%, var(--color-velo-fuerte) 50%, var(--color-velo-suave) 100%);
+}
+.bandaContenido {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-l);
+  max-width: calc(var(--grid-max) * 2 / 3);
+}
+.bandaEtiqueta {
+  color: var(--color-acento-sobre-oscuro);
+}
+
+@media (min-width: 768px) {
+  .servicios,
+  .articulos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .marcoImagen {
+    height: 100%;
+  }
+  .imagen {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+  .dosColumnas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--espacio-xxxl);
+  }
+}

@@ -1,0 +1,51 @@
+/* Seccion · Tono: superficie | fondo | cabecera (extensión landing v4.1) */
+.seccion {
+  padding-block: var(--seccion-espacio);
+}
+.superficie {
+  background: var(--color-superficie);
+  color: var(--color-texto);
+}
+.fondo {
+  background: var(--color-fondo);
+  color: var(--color-texto);
+}
+.cabecera {
+  background: var(--color-cabecera);
+  color: var(--color-superficie);
+}
+
+/* Encabezado de sección: etiqueta + título grande + intro / acción */
+.encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+  margin-bottom: var(--espacio-xxl);
+}
+.textos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+  max-width: calc(var(--grid-max) * 2 / 3); /* 8 de 12 columnas */
+}
+.etiqueta {
+  color: var(--color-acento-oscuro);
+}
+.cabecera .etiqueta {
+  color: var(--color-acento-sobre-oscuro);
+}
+.intro {
+  color: var(--color-texto-sec);
+  max-width: calc(var(--grid-max) / 2); /* 6 de 12 columnas */
+}
+.cabecera .intro {
+  color: var(--color-superficie);
+}
+
+@media (min-width: 1024px) {
+  .encabezado {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,139 @@
+/* Hero · foto a todo el ancho con velo oscuro (extensión landing v4.1, movimiento v4.2) */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: 100svh;
+  /* La cabecera de Inicio es transparente y queda encima del hero. */
+  margin-top: calc(-1 * var(--cabecera-alto));
+  padding-top: calc(var(--cabecera-alto) + var(--espacio-xxl));
+  padding-bottom: var(--espacio-xxl);
+  background-color: var(--color-cabecera);
+  color: var(--color-superficie);
+  overflow: hidden;
+}
+/* Marco de la foto: más alto que el hero para que el parallax no deje bordes. */
+.fotoMarco {
+  position: absolute;
+  inset: calc(-1 * var(--espacio-xxxl)) 0;
+  z-index: -2;
+  transform: translate3d(0, var(--parallax, 0px), 0);
+  will-change: transform;
+}
+.foto {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 50%;
+  animation: acercar calc(2 * var(--movimiento-lento)) var(--curva-salida) both;
+}
+@keyframes acercar {
+  from {
+    transform: scale(1.08);
+  }
+}
+/* Velo: 70 % arriba y 90 % abajo, donde está el texto (superficie sobre velo ≥ 7.2:1). */
+.velo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, var(--color-velo-fuerte) 0%, var(--color-velo-fuerte) 35%, var(--color-velo-suave) 100%);
+}
+
+.contenido {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xxl);
+}
+.textos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+  max-width: calc(var(--grid-max) * 2 / 3); /* 8 de 12 columnas */
+}
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-s);
+}
+
+/* ── Entrada escalonada ────────────────────────────────── */
+/* Título: cada palabra sube desde detrás de una máscara. */
+.mascara {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* Margen interno para no recortar las letras con descendentes (g, j, p). */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.palabra {
+  display: inline-block;
+  animation: subir var(--movimiento-lento) var(--curva-salida) both;
+  animation-delay: calc(var(--movimiento-medio) + var(--i, 0) * var(--movimiento-escalon));
+}
+@keyframes subir {
+  from {
+    transform: translateY(110%);
+  }
+}
+/* Resto del contenido: aparece y sube. */
+.entra {
+  animation: aparecer var(--movimiento-lento) var(--curva-salida) both;
+  animation-delay: calc(var(--movimiento-medio) + var(--i, 0) * var(--movimiento-escalon));
+}
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(var(--espacio-l));
+  }
+}
+
+/* Accesos rápidos al pie del hero, separados por líneas finas */
+.accesos {
+  display: grid;
+  grid-template-columns: 1fr;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--borde-ancho) solid var(--color-borde-sobre-oscuro);
+}
+.acceso {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-m);
+  min-height: calc(var(--alto-control) + var(--espacio-m));
+  color: var(--color-superficie);
+  text-decoration: none;
+  border-bottom: var(--borde-ancho) solid var(--color-borde-sobre-oscuro);
+  transition: padding var(--movimiento-medio) var(--curva-salida);
+}
+.acceso:hover {
+  padding-inline: var(--espacio-s);
+}
+.acceso svg {
+  transition: transform var(--transicion);
+}
+.acceso:hover svg {
+  transform: translate(var(--espacio-xs), calc(-1 * var(--espacio-xs)));
+}
+.acceso:focus-visible {
+  outline: var(--foco-ancho) solid var(--color-acento);
+  outline-offset: var(--foco-ancho);
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-bottom: var(--espacio-xl);
+  }
+  .accesos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+  }
+  .acceso {
+    border-bottom: 0;
+  }
+}

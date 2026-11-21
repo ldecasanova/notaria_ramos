@@ -1,0 +1,93 @@
+/*
+ * Design system Notaría Ramos · tokens
+ * Única fuente de valores de la interfaz. Ver CLAUDE.md antes de agregar o cambiar algo.
+ * Nombre del token → variable CSS: color.texto-sec → --color-texto-sec
+ */
+:root {
+  /* ── Color · roles base ─────────────────────────────── */
+  --color-primario: #041e48;
+  --color-primario-presionado: #031533;
+  --color-primario-claro: #eff1fa;
+  --color-acento: #5f6ec9;
+  --color-acento-oscuro: #434e8f;
+  --color-acento-sobre-oscuro: #7f8bd4;
+  --color-cabecera: #021128;
+  --color-texto: #181818;
+  --color-texto-sec: #646464;
+  --color-superficie: #ffffff;
+  --color-fondo: #f7f7f7;
+  --color-borde: #e0e0e0;
+  --color-deshabilitado: #b7b7b7;
+
+  /* ── Color · semánticos ─────────────────────────────── */
+  --color-error: #c62828;
+  --color-error-fondo: #fdf1f0;
+  --color-exito: #0b5f43;
+  --color-exito-fondo: #f3faf6;
+  --color-aviso: #8a5d06;
+  --color-aviso-fondo: #fffbf2;
+
+  /* ── Color · extensión landing (v4.1) ───────────────── */
+  /* Separador sobre fondos oscuros. Solo decorativo, nunca para texto ni bordes de controles. */
+  --color-borde-sobre-oscuro: rgb(255 255 255 / 0.2);
+  /* Velo sobre fotos: 70 % como mínimo donde hay texto (superficie sobre velo ≥ 7.2:1). */
+  --color-velo-suave: color-mix(in srgb, var(--color-cabecera) 70%, transparent);
+  --color-velo-fuerte: color-mix(in srgb, var(--color-cabecera) 90%, transparent);
+
+  /* ── Tipografía · Poppins ───────────────────────────── */
+  --fuente: 'Poppins', system-ui, sans-serif;
+  --peso-regular: 400;
+  --peso-medium: 500;
+
+  --texto-titulo1-size: 30px;  --texto-titulo1-alto: 38px;
+  --texto-titulo2-size: 20px;  --texto-titulo2-alto: 28px;
+  --texto-cuerpo-size: 16px;   --texto-cuerpo-alto: 24px;
+  --texto-pequeno-size: 14px;  --texto-pequeno-alto: 20px;
+  --texto-etiqueta-size: 12px; --texto-etiqueta-alto: 16px;
+  --texto-etiqueta-tracking: 0.1em;
+
+  /* Extensión landing (v4.2): escala fluida entre 375 px (= titulo1) y 1440 px.
+     display 30 → 64 · display-seccion 30 → 40 · interlineado = tamaño + 8 */
+  --texto-display-size: clamp(30px, 18px + 3.19vw, 64px);
+  --texto-display-alto: calc(var(--texto-display-size) + 8px);
+  --texto-display-seccion-size: clamp(30px, 26.5px + 0.94vw, 40px);
+  --texto-display-seccion-alto: calc(var(--texto-display-seccion-size) + 8px);
+  --texto-display-tracking: -0.02em;
+
+  /* ── Espaciado · escala de 8 ────────────────────────── */
+  --espacio-xs: 4px;
+  --espacio-s: 8px;
+  --espacio-m: 16px;
+  --espacio-l: 24px;
+  --espacio-xl: 32px;
+  --espacio-xxl: 48px;
+  --espacio-xxxl: 96px; /* extensión landing (v4.1): entre secciones, solo escritorio */
+
+  /* ── Forma y alturas ────────────────────────────────── */
+  --radio-chico: 10px;
+  --radio-marca: 20px;
+  --alto-toque: 44px;
+  --alto-control: 48px;
+  --borde-ancho: 1px;
+  --foco-ancho: 2px;
+
+  /* ── Grid ───────────────────────────────────────────── */
+  --grid-max: 1200px;
+  /* Margen y gutter fluidos: 16 (móvil, 375 px) → 24 (1440 px) */
+  --grid-margen: clamp(var(--espacio-m), 13.2px + 0.75vw, var(--espacio-l));
+  --grid-gutter: var(--grid-margen);
+
+  /* ── Movimiento (v4.2) ──────────────────────────────── */
+  --movimiento-rapido: 200ms;   /* hover, foco, cambios de color */
+  --movimiento-medio: 400ms;    /* menú, cabecera, cambio de página */
+  --movimiento-lento: 800ms;    /* aparición de contenido */
+  --movimiento-escalon: 80ms;   /* retraso entre elementos de un mismo grupo */
+  --curva-salida: cubic-bezier(0.22, 1, 0.36, 1);  /* entra rápido y frena suave */
+  --curva-estandar: cubic-bezier(0.65, 0, 0.35, 1); /* cambios de estado ida y vuelta */
+
+  /* ── Derivados ──────────────────────────────────────── */
+  --cabecera-alto: calc(var(--alto-control) + 2 * var(--espacio-m));
+  /* Espacio entre secciones fluido: 48 (375 px) → 96 (1440 px) */
+  --seccion-espacio: clamp(var(--espacio-xxl), 31px + 4.51vw, var(--espacio-xxxl));
+  --transicion: var(--movimiento-rapido) var(--curva-estandar);
+}

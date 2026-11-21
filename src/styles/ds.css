@@ -1,0 +1,145 @@
+/*
+ * Design system Notaría Ramos · estilos de texto y utilidades globales.
+ * Todas las clases llevan el prefijo `ds-` para no chocar con el CSS heredado.
+ */
+
+/* ── Raíz de componentes del sistema ─────────────────────
+ * El CSS heredado pone `margin: auto` a a, span, h1–h6, img, ul, li, section, header…
+ * Dentro de .ds-raiz se anula (especificidad 0,1,0; las clases de cada componente,
+ * que cargan después, siguen mandando). */
+.ds-raiz,
+.ds-raiz :where(span, a, h1, h2, h3, h4, h5, h6, p, abbr, address, em, img, ol, ul, li,
+  figure, header, footer, section, nav, form, label, dl, dt, dd, table, blockquote) {
+  margin: 0;
+}
+.ds-raiz,
+.ds-raiz *,
+.ds-raiz *::before,
+.ds-raiz *::after {
+  box-sizing: border-box;
+}
+
+/* ── Estilos de texto (Figma: texto/…) ─────────────────── */
+.ds-titulo1,
+.ds-display,
+.ds-display-seccion {
+  font-family: var(--fuente);
+  font-weight: var(--peso-medium);
+  font-size: var(--texto-titulo1-size);
+  line-height: var(--texto-titulo1-alto);
+  margin: 0;
+}
+/* Escala fluida: 30 px en móvil, crece con el ancho hasta 64 / 40 px (ver tokens). */
+.ds-display {
+  font-size: var(--texto-display-size);
+  line-height: var(--texto-display-alto);
+  letter-spacing: var(--texto-display-tracking);
+}
+.ds-display-seccion {
+  font-size: var(--texto-display-seccion-size);
+  line-height: var(--texto-display-seccion-alto);
+  letter-spacing: var(--texto-display-tracking);
+}
+.ds-titulo2 {
+  font-family: var(--fuente);
+  font-weight: var(--peso-medium);
+  font-size: var(--texto-titulo2-size);
+  line-height: var(--texto-titulo2-alto);
+  margin: 0;
+}
+.ds-cuerpo {
+  font-family: var(--fuente);
+  font-weight: var(--peso-regular);
+  font-size: var(--texto-cuerpo-size);
+  line-height: var(--texto-cuerpo-alto);
+  margin: 0;
+}
+.ds-pequeno {
+  font-family: var(--fuente);
+  font-weight: var(--peso-regular);
+  font-size: var(--texto-pequeno-size);
+  line-height: var(--texto-pequeno-alto);
+  margin: 0;
+}
+.ds-etiqueta {
+  font-family: var(--fuente);
+  font-weight: var(--peso-medium);
+  font-size: var(--texto-etiqueta-size);
+  line-height: var(--texto-etiqueta-alto);
+  letter-spacing: var(--texto-etiqueta-tracking);
+  text-transform: uppercase;
+  margin: 0;
+}
+.ds-numeros {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Contenedor del grid (máx. 1200 px) ───────────────── */
+.ds-contenedor {
+  width: 100%;
+  max-width: calc(var(--grid-max) + 2 * var(--grid-margen));
+  margin-inline: auto;
+  padding-inline: var(--grid-margen);
+  box-sizing: border-box;
+}
+
+/* ── Aparición al hacer scroll (useRevelar) ─────────────
+ * Cada elemento con [data-revelar] entra en orden; --i lo asigna el hook. */
+.ds-revelar[data-revelar],
+.ds-revelar [data-revelar] {
+  opacity: 0;
+  transform: translateY(var(--espacio-xl));
+  transition:
+    opacity var(--movimiento-lento) var(--curva-salida),
+    transform var(--movimiento-lento) var(--curva-salida);
+  transition-delay: calc(var(--i, 0) * var(--movimiento-escalon));
+}
+.ds-revelado[data-revelar],
+.ds-revelado [data-revelar] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Scroll suave y cambio de página ────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+.ds-pagina {
+  animation: ds-fundido var(--movimiento-medio) var(--curva-salida) both;
+}
+@keyframes ds-fundido {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ── Movimiento reducido: todo aparece sin animación ───── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
+  }
+  .ds-revelar[data-revelar],
+  .ds-revelar [data-revelar] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Texto solo para lectores de pantalla */
+.ds-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,181 @@
+/* Cabecera · Tipo: Inicio | Interna */
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-cabecera);
+  border-bottom: var(--borde-ancho) solid var(--color-borde-sobre-oscuro);
+  transition:
+    background-color var(--movimiento-medio) var(--curva-estandar),
+    border-color var(--movimiento-medio) var(--curva-estandar),
+    transform var(--movimiento-medio) var(--curva-salida);
+}
+/* Sobre el hero de Inicio, hasta que se hace scroll */
+.transparente {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+/* Al bajar se esconde; al subir vuelve. (Solo aquí hay transform: el panel fijo del menú depende de ello.) */
+.oculta {
+  transform: translateY(-100%);
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-xl);
+  height: var(--cabecera-alto);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  min-height: var(--alto-toque);
+  border-radius: var(--radio-chico);
+}
+.logo img {
+  display: block;
+  height: var(--alto-control);
+  width: auto;
+}
+
+.nav {
+  display: none;
+}
+.navLista {
+  display: flex;
+  gap: var(--espacio-l);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navEnlace {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--alto-toque);
+  color: var(--color-superficie);
+  text-decoration: none;
+  text-underline-offset: var(--espacio-s);
+  border-radius: var(--radio-chico);
+}
+.navEnlace:hover {
+  text-decoration: underline;
+}
+/* Página actual: color de acento sobre fondo sólido; sobre la foto, subrayado (el lavanda no se lee ahí). */
+.navEnlace[aria-current='page'] {
+  color: var(--color-acento-sobre-oscuro);
+}
+.transparente .navEnlace[aria-current='page'] {
+  color: var(--color-superficie);
+  text-decoration: underline;
+}
+
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+}
+
+.iconoBoton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--alto-toque);
+  height: var(--alto-toque);
+  padding: 0;
+  border: var(--borde-ancho) solid var(--color-borde-sobre-oscuro);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-superficie);
+  font-size: var(--texto-titulo2-size);
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color var(--transicion);
+}
+.iconoBoton:hover {
+  border-color: var(--color-superficie);
+}
+
+.navEnlace:focus-visible,
+.logo:focus-visible,
+.iconoBoton:focus-visible,
+.panelEnlace:focus-visible {
+  outline: var(--foco-ancho) solid var(--color-acento);
+  outline-offset: var(--foco-ancho);
+}
+
+/* Panel del menú móvil: siempre montado; se despliega como cortina y los enlaces entran escalonados. */
+.panel {
+  position: fixed;
+  inset: var(--cabecera-alto) 0 0 0;
+  z-index: 49;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--espacio-xl);
+  padding-block: var(--espacio-l) var(--espacio-xl);
+  background: var(--color-cabecera);
+  overflow-y: auto;
+  /* Cortina: se despliega de arriba hacia abajo, siempre opaca. */
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition:
+    clip-path var(--movimiento-medio) var(--curva-estandar),
+    visibility 0s linear var(--movimiento-medio);
+}
+.panelAbierto {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  transition: clip-path var(--movimiento-medio) var(--curva-salida);
+}
+.panelLista li {
+  opacity: 0;
+  transform: translateY(var(--espacio-m));
+  transition:
+    opacity var(--movimiento-rapido) var(--curva-estandar),
+    transform var(--movimiento-rapido) var(--curva-estandar);
+}
+.panelAbierto .panelLista li {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--movimiento-lento) var(--curva-salida),
+    transform var(--movimiento-lento) var(--curva-salida);
+  transition-delay: calc(var(--movimiento-rapido) + var(--i, 0) * var(--movimiento-escalon) / 2);
+}
+.panelLista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.panelLista li {
+  border-bottom: var(--borde-ancho) solid var(--color-borde-sobre-oscuro);
+}
+.panelEnlace svg {
+  transition: transform var(--transicion);
+}
+.panelEnlace:hover svg {
+  transform: translateX(var(--espacio-xs));
+}
+.panelEnlace {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: calc(var(--alto-control) + var(--espacio-s));
+  color: var(--color-superficie);
+  text-decoration: none;
+}
+.panelEnlace[aria-current='page'] {
+  color: var(--color-acento-sobre-oscuro);
+}
+
+@media (min-width: 1024px) {
+  .nav {
+    display: block;
+  }
+  .menuBoton,
+  .panel {
+    display: none;
+  }
+}
